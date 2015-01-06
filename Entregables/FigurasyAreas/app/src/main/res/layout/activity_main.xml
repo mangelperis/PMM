@@ -1,0 +1,25 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <Button android:id="@+id/buttonAreas"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Entrar"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Figuras y Areas"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="81dp"
+        android:textSize="50dp"
+        android:textColor="#FF1C1B22" />
+</RelativeLayout>
