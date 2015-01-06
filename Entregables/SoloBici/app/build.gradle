@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.0.2"
 
     defaultConfig {
-        applicationId "com.maria.listasimple"
+        applicationId "com.example.mati.solobici"
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
