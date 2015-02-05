@@ -1,12 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity" >
+    xmlns:tools="http://schemas.android.com/tools">
+  <!-- tools:context=".MainActivity"  -->
 
     <item
         android:id="@+id/Menu1"
-        android:title="Insertar en BD"/>
+        android:title="Insertar en BD"></item>
     <item android:id="@+id/Menu2"
-        android:title="Dibujar Muñeca"/>
+        android:title="Dibujar Muñeca"></item>
 
 
 </menu>

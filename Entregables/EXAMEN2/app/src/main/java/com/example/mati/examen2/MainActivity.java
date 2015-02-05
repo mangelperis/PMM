@@ -3,8 +3,10 @@ package com.example.mati.examen2;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,66 +126,72 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                String pes = txtpeso.getText().toString();
-                peso = Integer.parseInt(pes);
 
-                if (peso <= 5){
-                    tarifa = precio + (peso * 1);
+                if (txtpeso.getText().toString().equals("")){
+                    Toast.makeText( MainActivity.this, "El campo 'peso' no puede estar vacio", Toast.LENGTH_SHORT).show();
+
                 }else {
-                    if (peso >= 6 && peso <= 10){
-                        tarifa = precio + (peso * 1.5);
-                    }else {
-                        if (peso > 10){
-                            tarifa = precio + (peso * 2);
+
+                    String pes = txtpeso.getText().toString();
+                    peso = Integer.parseInt(pes);
+
+                    if (peso <= 5) {
+                        tarifa = precio + (peso * 1);
+                    } else {
+                        if (peso >= 6 && peso <= 10) {
+                            tarifa = precio + (peso * 1.5);
+                        } else {
+                            if (peso > 10) {
+                                tarifa = precio + (peso * 2);
+                            }
                         }
                     }
-                }
-                //Caja regalo
-                if (regalo.isChecked() && !(tarjeta.isChecked())){
-                    decoracion = "Con caja regalo";
-                }else {
-                    //Dedicada
-                    if (tarjeta.isChecked() && !(regalo.isChecked())){
-                        decoracion = "Con tarjeta dedicada";
-                    }else {
-                        //AMBOS marcados
-                        if (regalo.isChecked() && tarjeta.isChecked()){
-                            decoracion = " Con caja regalo y dedicatoria";
-                        }else {
-                            //Nada marcado
-                            decoracion = "Sin decoracion";
+                    //Caja regalo
+                    if (regalo.isChecked() && !(tarjeta.isChecked())) {
+                        decoracion = "Con caja regalo";
+                    } else {
+                        //Dedicada
+                        if (tarjeta.isChecked() && !(regalo.isChecked())) {
+                            decoracion = "Con tarjeta dedicada";
+                        } else {
+                            //AMBOS marcados
+                            if (regalo.isChecked() && tarjeta.isChecked()) {
+                                decoracion = " Con caja regalo y dedicatoria";
+                            } else {
+                                //Nada marcado
+                                decoracion = "Sin decoracion";
+                            }
                         }
                     }
+
+                    //URGENTE = 30 % extra
+                    if (tarurgente.isChecked()) {
+                        tarifa = tarifa + (tarifa * 0.3);
+                        clase = "urgente";
+                    } else {
+                        clase = "normal";
+                    }
+
+
+                    resultado = ("Zona: " + zona + " (" + continente + ") \nTarifa: " + clase + "\nPeso: " + peso +
+                            " Kg" + "\n\nDecoracion: " + decoracion + "\nCOSTE FINAL: " + tarifa + " €");
+
+
+                    Intent intent = new Intent(MainActivity.this, Resultado.class);
+                    Bundle b = new Bundle();
+
+
+                    b.putString("Resultado", resultado);
+                    b.putString("zona", zona);
+
+                    b.putDouble("total", tarifa);
+                    // b.putDouble("Precio", tarifa);
+
+                    intent.putExtras(b);
+
+
+                    startActivity(intent);
                 }
-
-                //URGENTE = 30 % extra
-                if (tarurgente.isChecked()){
-                    tarifa = tarifa + (tarifa * 0.3);
-                    clase = "urgente";
-                }else {
-                    clase = "normal";
-                }
-
-
-                resultado = ("Zona: " + zona + " (" + continente +") \nTarifa: " + clase + "\nPeso: " + peso +
-                        " Kg" + "\n\nDecoracion: " + decoracion + "\nCOSTE FINAL: " + tarifa + " €");
-
-
-                Intent intent = new Intent(MainActivity.this, Resultado.class);
-                Bundle b = new Bundle();
-
-
-                b.putString("Resultado", resultado);
-                b.putString("zona", zona);
-
-                b.putDouble("total",tarifa);
-               // b.putDouble("Precio", tarifa);
-
-                intent.putExtras(b);
-
-
-                startActivity(intent);
-
             }
         });
 
@@ -197,7 +205,17 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_opciones, menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+
 
         switch (item.getItemId()) {
             case R.id.Menu1:
